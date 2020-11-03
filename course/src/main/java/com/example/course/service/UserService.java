@@ -3,6 +3,7 @@ package com.example.course.service;
 
 import com.example.course.model.User;
 import com.example.course.service.impl.UserServiceImpl;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -21,6 +22,7 @@ public class UserService implements UserServiceImpl {
     RestTemplate restTemplate;
 
     @Transactional
+    @HystrixCommand(fallbackMethod = "fallbackgetUserById")
     public User getUserById(Long id) {
 //        return restTemplate.getForObject
 //                ("http://customer-info-service/user/" + id,
