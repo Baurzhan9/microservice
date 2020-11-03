@@ -3,6 +3,7 @@ package com.example.course.service;
 import com.example.course.model.Course;
 import com.example.course.service.impl.CourseInfoService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,18 @@ public class CourseInfoServiceImpl implements CourseInfoService {
     RestTemplate restTemplate;
 
     @Transactional
-    @HystrixCommand(fallbackMethod = "fallbackfindById")
+//    @HystrixCommand(fallbackMethod = "fallbackfindById")
+    @HystrixCommand(
+            fallbackMethod = "fallbackfindById",
+            threadPoolKey = "findById",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize", value="100"),
+//                    @HystrixProperty(name="maximumSize", value="120"),
+                    @HystrixProperty(name="maxQueueSize", value="50"),
+//                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
+            }
+    )
+
     public ResponseEntity<?> findById(Long id) {
         return ResponseEntity.ok(restTemplate.getForObject(
                 "http://course-information/course/" + id, Course.class));
@@ -35,12 +47,22 @@ public class CourseInfoServiceImpl implements CourseInfoService {
     }
 
     @Transactional
-    @HystrixCommand(fallbackMethod = "fallbackallCourse")
+//    @HystrixCommand(fallbackMethod = "fallbackallCourse")
+    @HystrixCommand(
+            fallbackMethod = "fallbackallCourse",
+            threadPoolKey = "allCourse",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize", value="100"),
+//                    @HystrixProperty(name="maximumSize", value="120"),
+                    @HystrixProperty(name="maxQueueSize", value="50"),
+//                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
+            })
     public List<Course> allCourse() {
         Course[] courses = restTemplate.getForObject(
                 "http://course-information/courses", Course[].class);
         return Arrays.asList(courses);
     }
+
 
     public List<Course> fallbackallCourse(Throwable t){
         Course course = new Course();
