@@ -21,7 +21,7 @@ public class CourseController {
     private CourseRepository courseRepository;
 
     @GetMapping("/courses")
-    public List<Course> getAllCourses(){
+    public List<Course> getAllCourses() {
 //        Iterable<Course> courses;
 //        courses = courseServiceImpl.findAll();
         List<Course> counts = new ArrayList<>();
@@ -31,13 +31,14 @@ public class CourseController {
     }
 
 
-
-    @GetMapping(path="/all")
-    public @ResponseBody Iterable<Course> getAllUsers() {
+    @GetMapping(path = "/all")
+    public @ResponseBody
+    Iterable<Course> getAllUsers() {
         // This returns a JSON or XML with the users
         return courseRepository.findAll();
     }
-//    @GetMapping("/courses/{title}")
+
+    //    @GetMapping("/courses/{title}")
 //    public Iterable<Course> allCoursesByTitle(@PathVariable String title) {
 //        Iterable<Course> courses;
 //        courses = courseServiceImpl.findAll(title);

@@ -11,7 +11,8 @@ import java.util.List;
 @Service
 public interface CourseService {
     List<Course> findAll();
-//    List<Course> findAllByTitleContainingIgnoreCase(String filter);
+
+    //    List<Course> findAllByTitleContainingIgnoreCase(String filter);
     Course findById(Long id);
 //    void save(Course course);
 //    void deleteById(Long id);

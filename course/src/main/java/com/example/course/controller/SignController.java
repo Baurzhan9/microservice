@@ -29,6 +29,7 @@ public class SignController {
 
         return "login";
     }
+
     @GetMapping("/users/{id}")
     public User getUsersById(@PathVariable Long id) {
         return userService.getUserById(id);
@@ -38,10 +39,11 @@ public class SignController {
     public String login() {
         return "login";
     }
+
     @PostMapping("/login")
-    public String loginPost(@RequestParam String username, @RequestParam String password ) {
+    public String loginPost(@RequestParam String username, @RequestParam String password) {
         User user = userService.getUserByUsername(username);
-        if(user!=null && user.getPassword()==password){
+        if (user != null && user.getPassword() == password) {
             return "courses";
         } else {
             return "login";

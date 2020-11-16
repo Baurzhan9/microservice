@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
-//    @Query(value = "SELECT * FROM COURSE", nativeQuery = true)
+    //    @Query(value = "SELECT * FROM COURSE", nativeQuery = true)
     List<Course> findAll();
 
 }

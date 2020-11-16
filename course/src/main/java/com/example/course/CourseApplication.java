@@ -24,13 +24,13 @@ public class CourseApplication {
 
     @Bean
     @LoadBalanced
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
     @Bean
     WebMvcConfigurer WebMvcConfigurerAdapter() {
-        return new WebMvcConfigurerAdapter(){
+        return new WebMvcConfigurerAdapter() {
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
                 registry

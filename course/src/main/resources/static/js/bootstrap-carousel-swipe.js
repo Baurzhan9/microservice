@@ -2,38 +2,38 @@
 +function ($) {
     'use strict';
 
-    if ( !$.fn.carousel ) {
+    if (!$.fn.carousel) {
         return
     }
 
     // CAROUSEL CLASS DEFINITION
     // =========================
 
-    var CarouselSwipe = function(element) {
-        this.$element    = $(element)
-        this.carousel    = this.$element.data('bs.carousel')
-        this.options     = $.extend({}, CarouselSwipe.DEFAULTS, this.carousel.options)
-        this.startX      =
-        this.startY      =
-        this.startTime   =
-        this.cycling     =
-        this.$active     =
-        this.$items      =
-        this.$next       =
-        this.$prev       = 
-        this.dx          = null
+    var CarouselSwipe = function (element) {
+        this.$element = $(element)
+        this.carousel = this.$element.data('bs.carousel')
+        this.options = $.extend({}, CarouselSwipe.DEFAULTS, this.carousel.options)
+        this.startX =
+            this.startY =
+                this.startTime =
+                    this.cycling =
+                        this.$active =
+                            this.$items =
+                                this.$next =
+                                    this.$prev =
+                                        this.dx = null
 
         this.$element
-            .on('touchstart', $.proxy(this.touchstart,this))
-            .on('touchmove', $.proxy(this.touchmove,this))
-            .on('touchend', $.proxy(this.touchend,this))
+            .on('touchstart', $.proxy(this.touchstart, this))
+            .on('touchmove', $.proxy(this.touchmove, this))
+            .on('touchend', $.proxy(this.touchend, this))
     }
 
     CarouselSwipe.DEFAULTS = {
         swipe: 50 // percent per second
     }
 
-    CarouselSwipe.prototype.touchstart = function(e) {
+    CarouselSwipe.prototype.touchstart = function (e) {
         if (!this.options.swipe) return;
         var touch = e.originalEvent.touches ? e.originalEvent.touches[0] : e
         this.dx = 0
@@ -44,14 +44,14 @@
         this.startTime = e.timeStamp
     }
 
-    CarouselSwipe.prototype.touchmove = function(e) {
+    CarouselSwipe.prototype.touchmove = function (e) {
         if (!this.options.swipe) return;
         var touch = e.originalEvent.touches ? e.originalEvent.touches[0] : e
         var dx = touch.pageX - this.startX
         var dy = touch.pageY - this.startY
         if (Math.abs(dx) < Math.abs(dy)) return; // vertical scroll
 
-        if ( this.cycling === null ) {
+        if (this.cycling === null) {
             this.cycling = !!this.carousel.interval
             this.cycling && this.carousel.pause()
         }
@@ -61,7 +61,7 @@
         this.swipe(this.dx)
     }
 
-    CarouselSwipe.prototype.touchend = function(e) {
+    CarouselSwipe.prototype.touchend = function (e) {
         if (!this.options.swipe) return;
         if (!this.$active) return; // nothing moved
         var all = $()
@@ -87,7 +87,7 @@
         this.$active = null // reset the active element
     }
 
-    CarouselSwipe.prototype.swipe = function(percent) {
+    CarouselSwipe.prototype.swipe = function (percent) {
         var $active = this.$active || this.getActive()
         if (percent < 0) {
             this.$prev
@@ -116,7 +116,7 @@
             .carousel_offset(percent)
     }
 
-    CarouselSwipe.prototype.getActive = function() {
+    CarouselSwipe.prototype.getActive = function () {
         this.$active = this.$element.find('.item.active')
         this.$items = this.$active.parent().children()
 
@@ -137,20 +137,20 @@
     // ==========================
 
     var old = $.fn.carousel
-    $.fn.carousel = function() {
+    $.fn.carousel = function () {
         old.apply(this, arguments);
         return this.each(function () {
-            var $this   = $(this)
-            var data    = $this.data('bs.carousel.swipe')
+            var $this = $(this)
+            var data = $this.data('bs.carousel.swipe')
             if (!data) $this.data('bs.carousel.swipe', new CarouselSwipe(this))
         })
     }
 
-    $.extend($.fn.carousel,old);
+    $.extend($.fn.carousel, old);
 
-    $.fn.carousel_transition = function(enable) {
+    $.fn.carousel_transition = function (enable) {
         enable = enable ? '' : 'none';
-        return this.each(function() {
+        return this.each(function () {
             $(this)
                 .css('-webkit-transition', enable)
                 .css('transition', enable)
@@ -158,19 +158,19 @@
     };
 
 
-    var support3dtransform = (function() {
+    var support3dtransform = (function () {
         if (!window.getComputedStyle) {
             return false;
         }
 
-        var el = document.createElement('p'), 
+        var el = document.createElement('p'),
             has3d,
             transforms = {
-                'webkitTransform':'-webkit-transform',
-                'OTransform':'-o-transform',
-                'msTransform':'-ms-transform',
-                'MozTransform':'-moz-transform',
-                'transform':'transform'
+                'webkitTransform': '-webkit-transform',
+                'OTransform': '-o-transform',
+                'msTransform': '-ms-transform',
+                'MozTransform': '-moz-transform',
+                'transform': 'transform'
             };
 
         // Add it to the body to get the computed style.
@@ -188,10 +188,10 @@
         return (has3d !== undefined && has3d.length > 0 && has3d !== "none");
     }());
 
-    $.fn.carousel_offset = function(value) {
-        return this.each(function() {
-            if(value) {
-                if(support3dtransform) {
+    $.fn.carousel_offset = function (value) {
+        return this.each(function () {
+            if (value) {
+                if (support3dtransform) {
                     $(this).css('transform', 'translate3d(' + value + '%, 0, 0)')
                 } else {
                     $(this).css('left', value + '%')

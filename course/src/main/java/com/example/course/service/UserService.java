@@ -43,7 +43,6 @@ public class UserService implements UserServiceImpl {
     }
 
 
-
     @Transactional
     public User getUserByUsername(String username) {
         return restTemplate.getForObject("http://course-user/userByUsername/" + username, User.class);

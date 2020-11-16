@@ -27,9 +27,9 @@ public class CourseInfoServiceImpl implements CourseInfoService {
             fallbackMethod = "fallbackfindById",
             threadPoolKey = "findById",
             threadPoolProperties = {
-                    @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name = "coreSize", value = "100"),
 //                    @HystrixProperty(name="maximumSize", value="120"),
-                    @HystrixProperty(name="maxQueueSize", value="50"),
+                    @HystrixProperty(name = "maxQueueSize", value = "50"),
 //                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             }
     )
@@ -39,7 +39,7 @@ public class CourseInfoServiceImpl implements CourseInfoService {
                 "http://course-information/course/" + id, Course.class));
     }
 
-    public List<Course> fallbackfindById(Long id, Throwable t){
+    public List<Course> fallbackfindById(Long id, Throwable t) {
         Course course = new Course();
         List<Course> list = new ArrayList<>();
         list.add(new Course(-1L, "Not available", "Not available"));
@@ -52,9 +52,9 @@ public class CourseInfoServiceImpl implements CourseInfoService {
             fallbackMethod = "fallbackallCourse",
             threadPoolKey = "allCourse",
             threadPoolProperties = {
-                    @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name = "coreSize", value = "100"),
 //                    @HystrixProperty(name="maximumSize", value="120"),
-                    @HystrixProperty(name="maxQueueSize", value="50"),
+                    @HystrixProperty(name = "maxQueueSize", value = "50"),
 //                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
     public List<Course> allCourse() {
@@ -64,7 +64,7 @@ public class CourseInfoServiceImpl implements CourseInfoService {
     }
 
 
-    public List<Course> fallbackallCourse(Throwable t){
+    public List<Course> fallbackallCourse(Throwable t) {
         Course course = new Course();
         List<Course> list = new ArrayList<>();
         list.add(new Course(-1L, "Not Connected", "Not Connected"));

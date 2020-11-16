@@ -1,10 +1,8 @@
 package com.example.course.model;
 
 
-
 import lombok.*;
 //import javax.persistence.*;
-
 
 
 @Data

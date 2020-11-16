@@ -1,9 +1,9 @@
-    jQuery(function($){
+jQuery(function ($) {
 
     var DATA_KEY = 'bs.navbar-dropdown';
     var EVENT_KEY = '.' + DATA_KEY;
     var DATA_API_KEY = '.data-api';
-    
+
     var Event = {
         COLLAPSE: 'collapse' + EVENT_KEY,
         CLICK_DATA_API: 'click' + EVENT_KEY + DATA_API_KEY,
@@ -38,19 +38,19 @@
             $(Selector.BASE).find(".navbar-collapse").removeClass("show");
             $(Selector.BASE)
                 .removeClass(ClassName.OPENED)
-                .find(Selector.TOGGLER).each(function(){
-                    
-                    $( $(this).attr('data-target') )
-                        .removeClass(ClassName.IN)
-                        .add(this)
-                        .attr('aria-expanded', 'false');
+                .find(Selector.TOGGLER).each(function () {
 
-                });
+                $($(this).attr('data-target'))
+                    .removeClass(ClassName.IN)
+                    .add(this)
+                    .attr('aria-expanded', 'false');
+
+            });
 
         }
 
         var scrollTop = $(this).scrollTop();
-        $(Selector.BASE).each(function(){
+        $(Selector.BASE).each(function () {
 
             if (!$(this).is(Selector.FIXED_TOP)) return;
 
@@ -63,7 +63,7 @@
                 }
 
             }
-        
+
             if (scrollTop > 0) {
                 $(this).addClass(ClassName.SHORT);
             } else {
@@ -76,21 +76,21 @@
 
     var _timeout;
     $(window)
-        .on(Event.SCROLL_DATA_API + ' ' + Event.RESIZE_DATA_API, function(event){
+        .on(Event.SCROLL_DATA_API + ' ' + Event.RESIZE_DATA_API, function (event) {
             clearTimeout(_timeout);
-            _timeout = setTimeout(function(){
+            _timeout = setTimeout(function () {
                 _dataApiHandler(event);
             }, 10);
         })
         .trigger(Event.SCROLL_DATA_API);
 
     $(document)
-        .on(Event.CLICK_DATA_API, Selector.BASE, function(event){
+        .on(Event.CLICK_DATA_API, Selector.BASE, function (event) {
             event.targetWrapper = this;
         })
-        .on(Event.COLLAPSE_SHOW + ' ' + Event.COLLAPSE_HIDE, function(event){
+        .on(Event.COLLAPSE_SHOW + ' ' + Event.COLLAPSE_HIDE, function (event) {
 
-            $(event.target).closest(Selector.BASE).each(function(){
+            $(event.target).closest(Selector.BASE).each(function () {
 
                 if (event.type == 'show') {
 
@@ -113,7 +113,7 @@
             });
 
         })
-        .on(Event.DROPDOWN_COLLAPSE, function(event){
+        .on(Event.DROPDOWN_COLLAPSE, function (event) {
 
             $(event.relatedTarget)
                 .closest(Selector.BASE)

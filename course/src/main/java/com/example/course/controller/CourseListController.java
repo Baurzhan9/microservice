@@ -25,7 +25,6 @@ public class CourseListController {
     private CourseInfoService courseInfoService;
 
 
-
 //    @GetMapping("/{userId}")
 //    public ResponseEntity<?> getCourseList(@PathVariable Long userId){
 //        List<Course> userCourses = courseInfoService.getUserCourses(userId);
@@ -52,7 +51,7 @@ public class CourseListController {
         List<Course> counts = courseInfoService.allCourse();
         List<CourseCont> courseLists = new ArrayList();
 
-        for(Course course: counts){
+        for (Course course : counts) {
             CourseCont courseList = new CourseCont();
             courseList.setId(course.getId());
             courseList.setTitle(course.getTitle());
@@ -73,11 +72,11 @@ public class CourseListController {
 //    @HystrixCommand(fallbackMethod = "planb", commandProperties = {
 //            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
 //    })
-    public String course(Model model){
+    public String course(Model model) {
         List<Course> counts = courseInfoService.allCourse();
         List<CourseCont> courseLists = new ArrayList();
 
-        for(Course course: counts){
+        for (Course course : counts) {
             CourseCont courseList = new CourseCont();
             courseList.setId(course.getId());
             courseList.setTitle(course.getTitle());
