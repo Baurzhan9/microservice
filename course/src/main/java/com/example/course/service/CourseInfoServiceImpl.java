@@ -5,7 +5,11 @@ import com.example.course.service.impl.CourseInfoService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.apache.catalina.connector.Response;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,10 +61,24 @@ public class CourseInfoServiceImpl implements CourseInfoService {
                     @HystrixProperty(name = "maxQueueSize", value = "50"),
 //                    @HystrixProperty(name="allowMaximumSizeToDivergeFromCoreSize", value="true"),
             })
+
+
     public List<Course> allCourse() {
-        Course[] courses = restTemplate.getForObject(
-                "http://course-information/courses", Course[].class);
-        return Arrays.asList(courses);
+
+        String apiCredentials = "rest-client:p@ssword";
+        String base64Credentials = new String(Base64.encodeBase64(apiCredentials.getBytes()));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Credentials);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+
+//        Course[] courses = restTemplate.getForObject(
+//                "http://course-information/courses", Course[].class);
+//        return Arrays.asList(courses);
+
+        return Arrays.asList(restTemplate.exchange("http://course-information/courses",
+                HttpMethod.GET, entity, Course[].class).getBody());
     }
 
 
