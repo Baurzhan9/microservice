@@ -5,10 +5,7 @@ import com.example.course.model.Course;
 import com.example.course.model.CourseCont;
 //import com.example.course.repository.CourseRepository;
 import com.example.course.service.impl.CourseInfoService;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -88,6 +85,8 @@ public class CourseListController {
 
         return "courses";
     }
+
+
 //    @GetMapping(value = {"/course/{id}"})
 //    public String home(Model model, HttpServletRequest request, @PathVariable Long id) {
 //        ResponseEntity<?> obj = courseInfoService.findById(id);
