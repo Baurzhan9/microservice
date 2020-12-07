@@ -1,0 +1,30 @@
+version: '2.2'
+services:
+  discovery:
+    container_name: discovery
+    build:
+      context: ./discovery
+    image: discovery:latest
+    ports:
+      - 8761:8761
+  notify-service:
+    container_name: notify-service
+    build:
+      context: ./notify-service
+    image: notify-service
+    ports:
+    - 9000:9000
+  course:
+    container_name: course
+    build:
+      context: ./course
+    image: course
+    ports:
+    - 8081:8081
+  course-information:
+    container_name: course-information
+    build:
+      context: ./course-information
+    image: course-information
+    ports:
+    - 8082:8082

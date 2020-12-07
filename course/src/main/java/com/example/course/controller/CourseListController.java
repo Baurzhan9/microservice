@@ -6,6 +6,7 @@ import com.example.course.model.CourseCont;
 //import com.example.course.repository.CourseRepository;
 import com.example.course.service.impl.CourseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -87,14 +88,14 @@ public class CourseListController {
     }
 
 
-//    @GetMapping(value = {"/course/{id}"})
-//    public String home(Model model, HttpServletRequest request, @PathVariable Long id) {
-//        ResponseEntity<?> obj = courseInfoService.findById(id);
-//        model.addAttribute("examName", obj.getTitle());
-//        model.addAttribute("examDesc", obj.getDescription());
-//        model.addAttribute("examId", obj.getId());
-//        return "page3";
-//    }
+    @GetMapping(value = {"/course/{id}"})
+    public String home1(Model model, HttpServletRequest request, @PathVariable Long id) {
+        Course obj = courseInfoService.findCourseById(id);
+        model.addAttribute("examName", obj.getTitle());
+        model.addAttribute("examDesc", obj.getDescription());
+        model.addAttribute("examId", obj.getId());
+        return "course";
+    }
 
 //    private String planb() {
 //        return "Sorry our Systems are busy! try again later.";

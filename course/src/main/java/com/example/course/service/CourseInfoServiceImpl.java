@@ -4,7 +4,6 @@ import com.example.course.model.Course;
 import com.example.course.service.impl.CourseInfoService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import org.apache.catalina.connector.Response;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -41,6 +40,21 @@ public class CourseInfoServiceImpl implements CourseInfoService {
     public ResponseEntity<?> findById(Long id) {
         return ResponseEntity.ok(restTemplate.getForObject(
                 "http://course-information/course/" + id, Course.class));
+    }
+
+    @Override
+    public Course findCourseById(Long id) {
+        String apiCredentials = "rest-client:p@ssword";
+        String base64Credentials = new String(Base64.encodeBase64(apiCredentials.getBytes()));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Credentials);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+//        return restTemplate.getForObject(
+//                "http://course-information/course/" + id, Course.class);
+       return restTemplate.exchange("http://course-information/course/" + id,
+                HttpMethod.GET, entity, Course.class).getBody();
     }
 
     public List<Course> fallbackfindById(Long id, Throwable t) {

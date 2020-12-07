@@ -15,7 +15,7 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>8</java.version>
         <spring-cloud.version>2020.0.0-SNAPSHOT</spring-cloud.version>
     </properties>
 
@@ -82,6 +82,7 @@
                 </executions>
             </plugin>
         </plugins>
+        <finalName>docker-common-service</finalName>
     </build>
 
     <repositories>

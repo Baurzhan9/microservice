@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CourseInfoService {
     ResponseEntity<?> findById(Long id);
-
+    Course findCourseById(Long id);
     List<Course> allCourse();
 
 }

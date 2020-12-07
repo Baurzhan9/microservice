@@ -13,7 +13,7 @@ public class Consumer {
     @KafkaListener(topics = "course_requests", groupId = "group_id")
     public void consume(CourseRequest courseRequest) throws IOException {
         System.out.println(String.format("#### -> Notify user by email: -> %s",
-                "User " + courseRequest.getUserId() + " purchased book "
+                "User " + courseRequest.getUserId() + " purchased course "
                         + courseRequest.getCourse().toString()));
     }
 }
