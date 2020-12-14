@@ -1,6 +1,7 @@
 package com.example.zuulserver.security;
 
 import com.example.commonservice.security.JwtConfig;
+import com.example.zuulserver.security.JwtTokenAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
